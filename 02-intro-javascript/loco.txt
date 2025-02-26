@@ -1,0 +1,144 @@
+package utils;
+
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;  // Para archivos .xls
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;  // Para archivos .xlsx
+import utils.Dado.Querys;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.SQLException;
+
+public class ActualizarExcel {
+    Querys qdb = new Querys();
+
+    // Método para actualizar el archivo Excel con un nuevo rut y el incremento del teléfono
+    public void actualizarExcel() throws IOException, SQLException, ClassNotFoundException {
+        // Obtener el rut desde la base de datos
+        String rut = qdb.obtenerRut();
+        System.out.println("Rut obtenido: " + rut);
+
+        // Usar la ruta completa proporcionada
+        String excelFilePath = System.getProperty("user.dir") + File.separator + "DatosAuto.xls";  // Aquí usas la ruta completa del archivo
+        // Verificar si el archivo existe
+        File file = new File(excelFilePath);
+        if (!file.exists()) {
+            System.out.println("El archivo Excel no existe en la ruta especificada: " + excelFilePath);
+            return; // Si no existe, salir del método
+        }
+
+        // Abrir el archivo Excel
+        FileInputStream fis = new FileInputStream(file);
+        Workbook workbook = null;
+
+        try {
+            // Primero intentamos abrir el archivo como .xls (HSSFWorkbook)
+            if (excelFilePath.endsWith(".xls")) {
+                workbook = new HSSFWorkbook(fis);  // Usamos HSSFWorkbook para archivos .xls
+            } else {
+                System.out.println("El archivo no tiene una extensión válida (.xls).");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al intentar abrir el archivo: " + e.getMessage());
+            return;
+        }
+
+        // Lista los nombres de las hojas para que puedas elegir la correcta
+        int sheetCount = workbook.getNumberOfSheets();
+        System.out.println("Número de hojas en el archivo: " + sheetCount);
+        for (int i = 0; i < sheetCount; i++) {
+            String sheetName = workbook.getSheetName(i);
+            System.out.println("Hoja #" + (i + 1) + ": " + sheetName);
+        }
+
+        // Cerrar el flujo de entrada
+        fis.close();
+    }
+/*
+        // Verificar si el archivo existe
+        File file = new File(excelFilePath);
+        if (!file.exists()) {
+            System.out.println("El archivo Excel no existe en la ruta especificada: " + excelFilePath);
+            return; // Si no existe, salir del método
+        }
+
+        // Abrir el archivo Excel
+        FileInputStream fis = new FileInputStream(file);
+        Workbook workbook = null;
+
+        try {
+            // Primero intentamos abrir el archivo como .xlsx (XSSFWorkbook)
+            if (excelFilePath.endsWith(".xlsx")) {
+                workbook = new XSSFWorkbook(fis);  // Usamos XSSFWorkbook para archivos .xlsx
+            } else if (excelFilePath.endsWith(".xls")) {
+                workbook = new HSSFWorkbook(fis);  // Usamos HSSFWorkbook para archivos .xls
+            } else {
+                System.out.println("El archivo no tiene una extensión válida (.xls o .xlsx).");
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println("Error al intentar abrir el archivo: " + e.getMessage());
+            return;
+        }
+
+        // Lista los nombres de las hojas para que puedas elegir la correcta
+        int sheetCount = workbook.getNumberOfSheets();
+        System.out.println("Número de hojas en el archivo: " + sheetCount);
+        for (int i = 0; i < sheetCount; i++) {
+            String sheetName = workbook.getSheetName(i);
+            System.out.println("Hoja #" + (i + 1) + ": " + sheetName);
+        }
+
+        // Intentar obtener una de las hojas disponibles (modificado para Sheet1 en este caso)
+        Sheet sheet = workbook.getSheet("Sheet1");  // O usa "Sheet2" o "Sheet3" según tu preferencia
+
+        // Verificar si la hoja existe
+        if (sheet == null) {
+            System.out.println("La hoja 'Sheet1' no existe.");
+            fis.close();
+            return;
+        }
+
+        // Encontrar la última fila ocupada
+        int lastRowNum = sheet.getLastRowNum();
+        Row lastRow = sheet.getRow(lastRowNum);
+
+        // Si la última fila está vacía, se decrece en 1 para insertar la nueva fila en la última fila ocupada
+        if (lastRow != null && lastRow.getCell(0) != null && !lastRow.getCell(0).toString().isEmpty()) {
+            lastRowNum++;  // Si la última fila tiene datos, incrementamos para añadir una nueva fila
+        }
+
+        // Crear una nueva fila con los datos, incluyendo el rut y el teléfono incrementado
+        Row newRow = sheet.createRow(lastRowNum);
+
+        // Llenar la nueva fila con los datos
+        newRow.createCell(0).setCellValue(rut);  // Agregar el rut
+        newRow.createCell(1).setCellValue("JHON");  // Nombre
+        newRow.createCell(2).setCellValue("VISA");  // ApellidoP
+        newRow.createCell(3).setCellValue("MASTERCARD");  // ApellidoM
+        newRow.createCell(4).setCellValue("CHILENA");  // Nacionalidad
+        newRow.createCell(5).setCellValue("INGENIERO EN COMPUTACION E INFORMATICA");  // Profesión
+        newRow.createCell(6).setCellValue("01/01/1988");  // fnac
+        newRow.createCell(7).setCellValue("Soltero");  // estadoC
+        newRow.createCell(8).setCellValue("automatizacion@qacat.cl");  // correo
+        newRow.createCell(9).setCellValue("Particular");  // TipoDirecion
+        newRow.createCell(10).setCellValue("Solida");  // Calle
+        newRow.createCell(11).setCellValue("MAIPU");  // Comuna
+        newRow.createCell(12).setCellValue(12345678);  // Teléfono (reemplazar con el valor real)
+        newRow.createCell(13).setCellValue("Dependiente");  // TipoActividadLaboral
+        newRow.createCell(14).setCellValue("Indefinido");  // tipoContrato
+        newRow.createCell(15).setCellValue("abogado");  // Actividad_Economica
+        newRow.createCell(16).setCellValue("ADMINISTRATIVO (A) Y OTROS FUNCIONARIOS FF.AA.");  // Ocupacion
+
+        // Guardar los cambios en el archivo Excel
+        FileOutputStream fos = new FileOutputStream(new File(excelFilePath));
+        workbook.write(fos);  // Escribir cambios al archivo
+        fos.close();  // Cerrar el flujo de salida
+
+        // Cerrar el flujo de entrada
+        fis.close();*/
+
+}
