@@ -15,7 +15,6 @@ const persona ={
 //console.log(persona.clave)
 
 const userContext = ( { clave, nombre, edad, rango= 'Lider'  } ) => {
-    
     //console.log(edad,nombre, rango)
     return {
         nombreClave: clave,
