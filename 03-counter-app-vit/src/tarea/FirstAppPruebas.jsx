@@ -1,4 +1,4 @@
-import { persona } from "./pruebaBase/component"
+import { persona } from "../pruebaBase/component"
 // const newMessage = {
 //     name:'Patricio',
 //     lastName:'Calderon'

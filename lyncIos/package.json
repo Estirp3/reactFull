@@ -10,7 +10,8 @@
     "preview": "rspeedy preview"
   },
   "dependencies": {
-    "@lynx-js/react": "^0.105.1"
+    "@lynx-js/react": "^0.105.1",
+    "lyncIos": "file:"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
