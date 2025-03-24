@@ -36,6 +36,7 @@ describe('Pruebas en 08-imp-exp', () => {
         expect( heroes.length ).toBe(3)
       
     })
-    
+    // terminar
+    console.log(3)
   
 })
