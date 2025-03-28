@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <!-- Cargat React -->
@@ -8,30 +9,26 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <title>React Curso</title>
 </head>
+
 <body>
     <div id="root"></div>
     <div id="suma"></div>
 
-        <script type="text/babel">
-            // codigo jsx
-            const divRoot = document.querySelector('#root');
-            const divSuma = document.querySelector('#suma')
-            
-            const a = 10, b = 5;
-            const result = a + b;
-            const nombre = 'Goku'
-            const h1Tag = <h1>Hola, Soy { nombre }</h1>;     
-            const h2Tag = <h2>Resultado: { result }</h2>
-            
-            ReactDOM.render(h1Tag, divRoot)
-            ReactDOM.render(h2Tag, divSuma)
-            
+    <script type="text/babel">
+        // codigo jsx
+        const divRoot = document.querySelector('#root');
+        const divSuma = document.querySelector('#suma')
 
-            
+        const a = 10, b = 5;
+        const result = a + b;
+        const nombre = 'Goku'
+        const h1Tag = <h1>Hola, Soy {nombre}</h1>;
+        const h2Tag = <h2>Resultado: {result}</h2>
 
+        ReactDOM.render(h1Tag, divRoot)
+        ReactDOM.render(h2Tag, divSuma)
+    </script>
 
-
-        </script>
-    
 </body>
+
 </html>

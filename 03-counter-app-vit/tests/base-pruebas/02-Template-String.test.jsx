@@ -8,5 +8,4 @@ describe('Pruebas en 02-template-string', () => {
         expect( massage).toBe(`Hola ${ name}`)
     })
     
-  
 })

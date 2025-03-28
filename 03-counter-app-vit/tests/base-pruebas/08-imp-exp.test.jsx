@@ -1,42 +1,41 @@
-import { owners } from '../data/heroes'
-import { getHeroeById, getHeroesByOwner } from './08-imp-exp'
+import { getHeroeById,getHeroesByOwner } from "../../src/base-pruebas/08-imp-exp"
+import heroes from "../../src/data/heroes"
 
 describe('Pruebas en 08-imp-exp', () => {
-    test('Me debe devolver la posicion y el heroe por id ', () => {
-      
+    test('getHeroById debe retornar heroes por ID', () => {
         const id = 1
-        const heroe = getHeroeById(id)
-        console.log(heroe)
+        const hero = getHeroeById(id)
 
-        expect(heroe).toEqual({id: 1,name: 'Batman', owner: 'DC' })
+        expect(hero).toEqual({ id: 1, name: 'Batman', owner: 'DC' })
 
     })
-
-    test('Me debe regresar undefine si no existe el id   ', () => {
-      
+    test('getHeroById debe retornar undifined', () => {
         const id = 100
-        const heroe = getHeroeById(id)
-        console.log(heroe)
+        const hero = getHeroeById(id)
 
-        expect( heroe ).toBeFalsy()
-
+        expect(hero).toEqual(undefined)
     })
-    //Tarea 
-    // getHeroesByOwner 
-    // debe de retornar un arreglo con los heroes de DC
-    // length = 3
+
+    //Tarea
+    // Debe de retornar un arreglo con los heroes de DC
+    // lenth === 3
     // toEqual al arreglo filtrado
 
-    //debe de retornar un arreglo con los heroes de Marvel
-    // length = 2
-    test('Me debe regresar el segun el owner ', () => {
+    // debe de retornar un arreglo con los heroes de Marvel
+    // length === 2
+    test('getHeroesByOwner debe retornar DC', () => {
         const owner = 'DC'
-        const heroes = getHeroesByOwner(owner)
-        console.log(heroes)
-        expect( heroes.length ).toBe(3)
-      
+        const hero = getHeroesByOwner(owner)
+        
+        expect( hero.length ).toBe(3)
+        expect( hero ).toEqual(heroes.filter( h => h.owner === owner ))
     })
-    // terminar
-    console.log(3)
-  
+    test('getHeroesByOwner debe retornar Marvel', () => {
+        const owner = 'Marvel'
+        const hero = getHeroesByOwner(owner)
+        
+        expect( hero.length ).toBe(2)
+        expect( hero ).toEqual(heroes.filter( h => h.owner === owner ))
+       // expect(hero).toEqual(undefined)
+    })
 })
