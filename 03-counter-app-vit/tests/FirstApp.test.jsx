@@ -4,9 +4,12 @@ import { FirstApp } from '../src/FirstApp';
 
 describe('Pruebas en FirstApp', () => {
     test('Debe hacer match con el snapshot', () => {
-        
+
         const title = 'Hola soy Goku'
-        render( <FirstApp title={ title }/> )
+        const { container } = render(<FirstApp title={title} />)
+        
+        expect( container ).toMatchSnapshot();
+
 
     })
 })
