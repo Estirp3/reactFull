@@ -1,12 +1,15 @@
 import {useState} from 'react'
+
+import { AddCategory } from './components/AddCategory';
+
 export const GifExpertApp = () => {
     // hooks que mantienen el estado
-    const [categories, setcategories] = useState(['One Punch','Dragon Ball Z']);
+    const [categories, setCategories] = useState(['One Punch','Dragon Ball Z']);
 
     const onAddCategory = () =>{
         //Agregar un nuevo estado
-        setcategories([...categories,'Valorant'])
-        // setcategories(cat =>[...cat,'Valorant'])
+        setCategories([...categories,'Valorant'])
+        //setcategories(cat =>[...cat,'Valorant'])
     }
     return (
     <>
@@ -14,9 +17,9 @@ export const GifExpertApp = () => {
         <h1>GifExpertApp</h1>
 
         {/* Input */}
-
+        <AddCategory onAddCategory={ setCategories } />
         {/* Listado de Gif */}
-        <button onClick={onAddCategory}>Agrear</button>
+        {/* <button onClick={onAddCategory}>Agrear</button> */}
         <ol>
             { categories.map( category =>{
                 return <li key={ category }>{ category }</li>
