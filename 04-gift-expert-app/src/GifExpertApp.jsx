@@ -1,11 +1,10 @@
 import { useState } from 'react'
+import { AddCategory, GifGrid } from './components';
 
-import { AddCategory } from './components/AddCategory';
-import { GifGrid } from './components/GifGrid';
 
 export const GifExpertApp = () => {
     // hooks que mantienen el estado
-    const [categories, setCategories] = useState(['Dragon Ball Z']);
+    const [categories, setCategories] = useState(['HUNTER X HUNTER']);
 
     const onAddCategory = (newCategory) => {
         // Convertir la nueva categoría a minúsculas
