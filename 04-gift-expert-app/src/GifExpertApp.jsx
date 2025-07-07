@@ -15,7 +15,7 @@ export const GifExpertApp = () => {
 
         //categories.push(onNewCategory)
         //Agregar un nuevo estado
-        setCategories([newCategory, ...categories])
+        setCategories([newCategory])
         //setcategories(cat =>[...cat,'Valorant'])
     }
     return (
